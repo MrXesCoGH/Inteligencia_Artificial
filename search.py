@@ -85,65 +85,71 @@ def depthFirstSearch(problem):
     To get started, you might want to try some of these simple commands to
     understand the search problem that is being passed in:
 """
-    print "Start:", problem.getStartState()
-    print "Is the start a goal?", problem.isGoalState(problem.getStartState())
-    print "Start's successors:", problem.getSuccessors(problem.getStartState())
-  
-    """*** YOUR CODE HERE ***"""
 
     stack = util.Stack()
-    vist = []
-    path = [] 
+    expanded = []
     
     firstPos = problem.getStartState();
     
-    stack.push((firstPos,[]))
+    stack.push((firstPos,[],0))
 
     while not stack.isEmpty():
-        node,cami = stack.pop() #Node is a tuple of two coordinates.
+        node,cami,cost = stack.pop() #Node is a tuple of two coordinates.
         
-        if node not in vist:           
+        if not node in expanded:
+            expanded.append(node)
             
-            if problem.isGoalState(node[0]):
-                path = cami + s[1]  
- 			
- 			stack.push((s[0],cami + s[1]))
-            vist.append(node)
-
-    return path
+            if problem.isGoalState(node):
+                return cami
+            
+            for son, cami2, nCost in problem.getSuccessors(node):
+                stack.push((son,cami + [cami2],cost+nCost))
 
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
     """*** YOUR CODE HERE ***"""
 
     queue = util.Queue()
-    vist = []
-    path = [] 
+    expanded = []
     
     firstPos = problem.getStartState();
     
-    queue.push((firstPos,[]))
+    queue.push((firstPos,[],0))
 
     while not queue.isEmpty():
-        node,cami = queue.pop() #Node is a tuple of two coordinates.
+        node,cami,cost = queue.pop() #Node is a tuple of two coordinates.
         
-        if node not in vist:           
+        if not node in expanded:
+            expanded.append(node)
             
-            if problem.isGoalState(node[0]):# Thsi tests if the actual node is the solution.
-                path = cami + s[1]  
+            if problem.isGoalState(node):
+                return cami
             
-            queue.push((s[0],cami + s[1]))
-            vist.append(node)
-
-    return path
-
-
-    util.raiseNotDefined()
+            for son, cami2, nCost in problem.getSuccessors(node):
+                queue.push((son,cami + [cami2],cost+nCost))
 
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    
+    queue = util.Queue()
+    expanded = []
+    
+    firstPos = problem.getStartState();
+    
+    queue.push((firstPos,[],0))
+
+    while not queue.isEmpty():
+        node,cami,cost = queue.pop() #Node is a tuple of two coordinates.
+        
+        if not node in expanded:
+            expanded.append(node)
+            
+            if problem.isGoalState(node):
+                return cami
+            
+            for son, cami2, nCost in problem.getSuccessors(node):
+                queue.push((son,cami + [cami2],cost+nCost))
 
 def nullHeuristic(state, problem=None):
     """
@@ -155,7 +161,24 @@ def nullHeuristic(state, problem=None):
 def aStarSearch(problem, heuristic=nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    queue = util.PriorityQueue()
+    expanded = []
+    
+    firstPos = problem.getStartState();
+    
+    queue.push((firstPos,[],0),0) #((node,cami,cost),cHeuristic)
+
+    while not queue.isEmpty():
+        node,cami,cost = queue.pop() #Node is a tuple of two coordinates.
+        
+        if problem.isGoalState(node):
+            return cami
+        
+        if not node in expanded:
+            expanded.append(node)
+            
+            for son, cami2, nCost in problem.getSuccessors(node):
+                queue.push((son,cami + [cami2],cost+nCost),(cost+nCost+heuristic(son,problem)))
 
 # Abbreviations
 bfs = breadthFirstSearch
