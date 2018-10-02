@@ -2,16 +2,16 @@
 #
 # searchAgents.py
 # ---------------
-# Licensing Information:  You are free to use or extend these projects for 
-# educational purposes provided that (1) you do not distribute or publish 
-# solutions, (2) you retain this notice, and (3) you provide clear 
-# attribution to UC Berkeley, including a link to 
+# Licensing Information:  You are free to use or extend these projects for
+# educational purposes provided that (1) you do not distribute or publish
+# solutions, (2) you retain this notice, and (3) you provide clear
+# attribution to UC Berkeley, including a link to
 # http://inst.eecs.berkeley.edu/~cs188/pacman/pacman.html
-# 
+#
 # Attribution Information: The Pacman AI projects were developed at UC Berkeley.
-# The core projects and autograders were primarily created by John DeNero 
+# The core projects and autograders were primarily created by John DeNero
 # (denero@cs.berkeley.edu) and Dan Klein (klein@cs.berkeley.edu).
-# Student side autograding was added by Brad Miller, Nick Hay, and 
+# Student side autograding was added by Brad Miller, Nick Hay, and
 # Pieter Abbeel (pabbeel@cs.berkeley.edu).
 
 
@@ -291,26 +291,33 @@ class CornersProblem(search.SearchProblem):
         # Please add any code here which you would like to use
         # in initializing the problem
         "*** YOUR CODE HERE ***"
-        
-               
-        
+
+
+
     def getStartState(self):
         """
         Returns the start state (in your state space, not the full Pacman state
         space)
         """
         "*** YOUR CODE HERE ***"
-        collected_food = [False]*len(self.corners) 
-        init_state = (self.startingPosition,collected_food)
-        print init_state
+
+        #By making this init_state, we create a tuple of a position node and
+        #a path list which will store the positions travelled.
+        init_state = (self.startingPosition,[])
         return init_state
-        
+
     def isGoalState(self, state):
         """
         Returns whether this search state is a goal state of the problem.
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        visited = state[1] #state[1] stores the food of the game.
+        if state[0] in self.corners:
+            if state[0] not in visited:
+                visited.append(state[0])
+            #if this condition is true then all corners were visited
+            return len(visited) == len(self.corners)
+        return False
 
     def getSuccessors(self, state):
         """
@@ -327,12 +334,21 @@ class CornersProblem(search.SearchProblem):
         for action in [Directions.NORTH, Directions.SOUTH, Directions.EAST, Directions.WEST]:
             # Add a successor state to the successor list if the action is legal
             # Here's a code snippet for figuring out whether a new position hits a wall:
-            #   x,y = currentPosition
-            #   dx, dy = Actions.directionToVector(action)
-            #   nextx, nexty = int(x + dx), int(y + dy)
-            #   hitsWall = self.walls[nextx][nexty]
+               x,y = currentPosition
+               dx, dy = Actions.directionToVector(action)
+               nextx, nexty = int(x + dx), int(y + dy)
+               hitsWall = self.walls[nextx][nexty]
+               visited = list(state[1])
 
-            "*** YOUR CODE HERE ***"
+               #while pacman doesn't hit a wall, that's a correct direction
+               if not hitsWall:
+                   nextNode=(nextx,nexty) #both positions on the matrix.
+                   #if the next node actually is inside the corners list then
+                   #it has to be added to the visited list.
+                   if nextnode in self.corners:
+                       if nextnode not in visited:
+                           visited.append(nextnode)
+                   succesors.append(((nextnode,visited),action,1))
 
         self._expanded += 1 # DO NOT CHANGE
         return successors
