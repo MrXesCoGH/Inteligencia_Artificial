@@ -298,8 +298,13 @@ class CornersProblem(search.SearchProblem):
         space)
         """
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
-
+        collected_food = []
+        collected_food[self.corners] = false;
+        
+        init_state = (self.startingState,collected_food)
+        
+        return init_state
+        
     def isGoalState(self, state):
         """
         Returns whether this search state is a goal state of the problem.
