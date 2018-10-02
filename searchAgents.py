@@ -291,18 +291,18 @@ class CornersProblem(search.SearchProblem):
         # Please add any code here which you would like to use
         # in initializing the problem
         "*** YOUR CODE HERE ***"
-
+        
+               
+        
     def getStartState(self):
         """
         Returns the start state (in your state space, not the full Pacman state
         space)
         """
         "*** YOUR CODE HERE ***"
-        collected_food = []
-        collected_food[self.corners] = false;
-        
-        init_state = (self.startingState,collected_food)
-        
+        collected_food = [False]*len(self.corners) 
+        init_state = (self.startingPosition,collected_food)
+        print init_state
         return init_state
         
     def isGoalState(self, state):
