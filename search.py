@@ -2,16 +2,16 @@
 #
 # search.py
 # ---------
-# Licensing Information:  You are free to use or extend these projects for 
-# educational purposes provided that (1) you do not distribute or publish 
-# solutions, (2) you retain this notice, and (3) you provide clear 
-# attribution to UC Berkeley, including a link to 
+# Licensing Information:  You are free to use or extend these projects for
+# educational purposes provided that (1) you do not distribute or publish
+# solutions, (2) you retain this notice, and (3) you provide clear
+# attribution to UC Berkeley, including a link to
 # http://inst.eecs.berkeley.edu/~cs188/pacman/pacman.html
-# 
+#
 # Attribution Information: The Pacman AI projects were developed at UC Berkeley.
-# The core projects and autograders were primarily created by John DeNero 
+# The core projects and autograders were primarily created by John DeNero
 # (denero@cs.berkeley.edu) and Dan Klein (klein@cs.berkeley.edu).
-# Student side autograding was added by Brad Miller, Nick Hay, and 
+# Student side autograding was added by Brad Miller, Nick Hay, and
 # Pieter Abbeel (pabbeel@cs.berkeley.edu).
 
 
@@ -88,20 +88,20 @@ def depthFirstSearch(problem):
 
     stack = util.Stack()
     expanded = []
-    
+
     firstPos = problem.getStartState();
-    
+
     stack.push((firstPos,[],0))
 
     while not stack.isEmpty():
         node,cami,cost = stack.pop() #Node is a tuple of two coordinates.
-        
+
         if not node in expanded:
             expanded.append(node)
-            
+
             if problem.isGoalState(node):
                 return cami
-            
+
             for son, cami2, nCost in problem.getSuccessors(node):
                 stack.push((son,cami + [cami2],cost+nCost))
 
@@ -111,45 +111,29 @@ def breadthFirstSearch(problem):
 
     queue = util.Queue()
     expanded = []
-    
+
     firstPos = problem.getStartState();
-    
+
     queue.push((firstPos,[],0))
 
     while not queue.isEmpty():
         node,cami,cost = queue.pop() #Node is a tuple of two coordinates.
-        
+
         if not node in expanded:
             expanded.append(node)
-            
+
             if problem.isGoalState(node):
                 return cami
-            
+
             for son, cami2, nCost in problem.getSuccessors(node):
                 queue.push((son,cami + [cami2],cost+nCost))
 
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
     "*** YOUR CODE HERE ***"
-    
-    queue = util.Queue()
-    expanded = []
-    
-    firstPos = problem.getStartState();
-    
-    queue.push((firstPos,[],0))
 
-    while not queue.isEmpty():
-        node,cami,cost = queue.pop() #Node is a tuple of two coordinates.
-        
-        if not node in expanded:
-            expanded.append(node)
-            
-            if problem.isGoalState(node):
-                return cami
-            
-            for son, cami2, nCost in problem.getSuccessors(node):
-                queue.push((son,cami + [cami2],cost+nCost))
+    util.raiseNotDefined()
+
 
 def nullHeuristic(state, problem=None):
     """
@@ -163,20 +147,20 @@ def aStarSearch(problem, heuristic=nullHeuristic):
     "*** YOUR CODE HERE ***"
     queue = util.PriorityQueue()
     expanded = []
-    
+
     firstPos = problem.getStartState();
-    
+
     queue.push((firstPos,[],0),0) #((node,cami,cost),cHeuristic)
 
     while not queue.isEmpty():
         node,cami,cost = queue.pop() #Node is a tuple of two coordinates.
-        
+
         if problem.isGoalState(node):
             return cami
-        
+
         if not node in expanded:
             expanded.append(node)
-            
+
             for son, cami2, nCost in problem.getSuccessors(node):
                 queue.push((son,cami + [cami2],cost+nCost),(cost+nCost+heuristic(son,problem)))
 
