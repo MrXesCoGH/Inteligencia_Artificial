@@ -348,7 +348,9 @@ class CornersProblem(search.SearchProblem):
                    if nextnode in self.corners:
                        if nextnode not in visited:
                            visited.append(nextnode)
-                   succesors.append(((nextnode,visited),action,1))
+                   #this adds to the successors list the tuple with:
+                   # ((next position, if it was visited),its action,its cost)     
+                   successors.append(((nextnode,visited),action,1))
 
         self._expanded += 1 # DO NOT CHANGE
         return successors
