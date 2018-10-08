@@ -401,8 +401,6 @@ def cornersHeuristic(state, problem):
 
     return total_Distance
 
-    #return 0 # Default to trivial solution
-
 class AStarCornersAgent(SearchAgent):
     "A SearchAgent for FoodSearchProblem using A* and your foodHeuristic"
     def __init__(self):
@@ -498,10 +496,16 @@ def foodHeuristic(state, problem):
 
     food_List = foodGrid.asList() #We want the grid as a list to iterate with.
 
+    #if there's food then
     if food_List:
+        #this gets the closest food
         min_dist, min_food = min([(util.manhattanDistance(position, food),food) for food in food_List])
+        #then, check how far is the further food, so the distance between pacman
+        #will be calculated as the sum of both.
         max_dist= max([(util.manhattanDistance(min_food,food)) for food in food_List])
     else:
+        #in the case that there isn't any food in the grid then we already beaten
+        #the game so the distance has to be 0.
         return 0
 
     return min_dist + max_dist
