@@ -495,10 +495,9 @@ def foodHeuristic(state, problem):
     "*** YOUR CODE HERE ***"
 
     food_List = foodGrid.asList() #We want the grid as a list to iterate with.
-
-    #if there's food then
+    #if there's food, then
     if food_List:
-        #this gets the closest food
+        #this gets the closest food to the agent (Pacman)
         min_dist, min_food = min([(util.manhattanDistance(position, food),food) for food in food_List])
         #then, check how far is the further food, so the distance between pacman
         #will be calculated as the sum of both.
