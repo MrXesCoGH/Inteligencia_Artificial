@@ -386,15 +386,18 @@ def cornersHeuristic(state, problem):
     "*** YOUR CODE HERE ***"
 
     node = state[0]
-
-    unexpanded = [corner for corner in corners if corner not in state[1]]
+    #every corner that is not visited/state[1]
+    pendents = [corner for corner in corners if corner not in state[1]]
     total_Distance = 0
     actual = node
-
-    while unexpanded:
-        dist, actual = min([(util.manhattanDistance(actual, corner), corner) for corner in unexpanded])
+    #while there are corners left
+    while pendents:
+        #it collects the distance and the new actual position for every corner
+        #after that, that distance is added to the total distance and the
+        #actual position is removed from the not visited list.
+        dist, actual = min([(util.manhattanDistance(actual, corner), corner) for corner in pendents])
         total_Distance += dist
-        unexpanded.remove(actual)
+        pendents.remove(actual)
 
     return total_Distance
 
