@@ -392,11 +392,9 @@ def cornersHeuristic(state, problem):
     actual = node
 
     while unexpanded:
-
-        for corner in unexpanded:
-            dist, actual = min([(manhattanHeuristic(actual,corner),corner)])
-            total_Distance += distance
-            unexpanded.remove(actual)
+        dist, actual = min([(util.manhattanDistance(actual, corner), corner) for corner in unexpanded])
+        total_Distance += dist
+        unexpanded.remove(actual)
 
     return total_Distance
 
