@@ -349,7 +349,7 @@ class CornersProblem(search.SearchProblem):
                        if nextnode not in visited:
                            visited.append(nextnode)
                    #this adds to the successors list the tuple with:
-                   # ((next position, if it was visited),its action,its cost)     
+                   # ((next position, if it was visited),its action,its cost)
                    successors.append(((nextnode,visited),action,1))
 
         self._expanded += 1 # DO NOT CHANGE
@@ -386,6 +386,21 @@ def cornersHeuristic(state, problem):
     walls = problem.walls # These are the walls of the maze, as a Grid (game.py)
 
     "*** YOUR CODE HERE ***"
+
+    node = state[0]
+
+    unexpanded = [corner for corner in corners if corner not in state[1]]
+    total_Distance = 0
+    currentPosition = node
+
+    while unexpanded:
+        for corner in unexpanded:
+            dist, actual = min([util.manhattanHeuristic(current,corner)])
+            total_Distance += distance
+            unexpanded.remove(current)
+            
+    return total_Distance
+
     return 0 # Default to trivial solution
 
 class AStarCornersAgent(SearchAgent):
