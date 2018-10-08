@@ -394,14 +394,15 @@ def cornersHeuristic(state, problem):
     actual = node
 
     while unexpanded:
+
         for corner in unexpanded:
-            dist, actual = min([util.manhattanHeuristic(actual,corner)])
+            dist, actual = min([(manhattanHeuristic(actual,corner),corner)])
             total_Distance += distance
-            unexpanded.remove(current)
+            unexpanded.remove(actual)
 
     return total_Distance
 
-    return 0 # Default to trivial solution
+    #return 0 # Default to trivial solution
 
 class AStarCornersAgent(SearchAgent):
     "A SearchAgent for FoodSearchProblem using A* and your foodHeuristic"
