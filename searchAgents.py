@@ -492,6 +492,9 @@ def foodHeuristic(state, problem):
     """
     position, foodGrid = state
     "*** YOUR CODE HERE ***"
+
+    food_List = foodGrid.asList() #We want the grid as a list to iterate with.
+
     return 0
 
 class ClosestDotSearchAgent(SearchAgent):
