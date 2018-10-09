@@ -94,15 +94,15 @@ def depthFirstSearch(problem):
     stack.push((firstPos,[],0))
 
     while not stack.isEmpty():
-        node,cami,cost = stack.pop() #Node is a tuple of two coordinates.
+        estat,cami,cost = stack.pop() #Node is a tuple of two coordinates.
 
-        if not node in expanded:
-            expanded.append(node)
+        if not estat in expanded:
+            expanded.append(estat)
 
-            if problem.isGoalState(node):
+            if problem.isGoalState(estat):
                 return cami
 
-            for son, cami2, nCost in problem.getSuccessors(node):
+            for son, cami2, nCost in problem.getSuccessors(estat):
                 stack.push((son,cami + [cami2],cost+nCost))
 
 def breadthFirstSearch(problem):
