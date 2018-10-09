@@ -384,19 +384,19 @@ def cornersHeuristic(state, problem):
     walls = problem.walls # These are the walls of the maze, as a Grid (game.py)
 
     "*** YOUR CODE HERE ***"
-
-    node = state[0]
     #every corner that is not visited/state[1]
     pendents = [corner for corner in corners if corner not in state[1]]
+    #the total distance that is going to be returned.
     total_Distance = 0
-    actual = node
+    #initial position
+    actual = state[0]
     #while there are corners left
     while pendents:
         #it collects the distance and the new actual position for every corner
         #after that, that distance is added to the total distance and the
         #actual position is removed from the not visited list.
         #This could be done with two fors doing the same thing as this list
-        #comprehension.
+        #comprehension
         dist, actual = min([(util.manhattanDistance(actual, corner), corner) for corner in pendents])
         total_Distance += dist
         pendents.remove(actual)
@@ -495,21 +495,20 @@ def foodHeuristic(state, problem):
     """
     position, foodGrid = state
     "*** YOUR CODE HERE ***"
-
-    food_List = foodGrid.asList() #We want the grid as a list to iterate with.
+    food_List = foodGrid.asList() #We want the grid as a list in order to iterate with it.
     #if there's food, then
     if food_List:
         #this gets the closest food to the agent (Pacman)
-        min_dist, min_food = min([(util.manhattanDistance(position, food),food) for food in food_List])
-        #and next, checks how far is the further food, so the distance between
+        minimal_Distance, nearest_food = min([(util.manhattanDistance(position, food),food) for food in food_List])
+        #next, it checks how far is the further food, so the distance between
         #this point and the agent will be calculated as the sum of both.
-        max_dist= max([(util.manhattanDistance(min_food,food)) for food in food_List])
+        furthest_food_Distance= max([(util.manhattanDistance(nearest_food,food)) for food in food_List])
     else:
         #in the case that there isn't any food in the grid then we already beaten
-        #the game so the distance has to be 0.
+        #the game so the returned distance has to be 0.
         return 0
 
-    return min_dist + max_dist
+    return minimal_Distance + furthest_food_Distance
 
 class ClosestDotSearchAgent(SearchAgent):
     "Search for all food using a sequence of searches"
