@@ -117,15 +117,15 @@ def breadthFirstSearch(problem):
     queue.push((firstPos,[],0))
 
     while not queue.isEmpty():
-        node,cami,cost = queue.pop() #Node is a tuple of two coordinates.
+        estat,cami,cost = queue.pop() #Node is a tuple of two coordinates.
 
-        if not node in expanded:
-            expanded.append(node)
+        if not estat in expanded:
+            expanded.append(estat)
 
-            if problem.isGoalState(node):
+            if problem.isGoalState(estat):
                 return cami
 
-            for son, cami2, nCost in problem.getSuccessors(node):
+            for son, cami2, nCost in problem.getSuccessors(estat):
                 queue.push((son,cami + [cami2],cost+nCost))
 
 def uniformCostSearch(problem):
@@ -153,15 +153,15 @@ def aStarSearch(problem, heuristic=nullHeuristic):
     queue.push((firstPos,[],0),0) #((node,cami,cost),cost Heuristic)
 
     while not queue.isEmpty():
-        node,cami,cost = queue.pop() #Node is a tuple of two coordinates.
+        estat,cami,cost = queue.pop() #Node is a tuple of two coordinates.
 
-        if problem.isGoalState(node):
+        if problem.isGoalState(estat):
             return cami
 
-        if not node in expanded:
-            expanded.append(node)
+        if not estat in expanded:
+            expanded.append(estat)
 
-            for son, cami2, nCost in problem.getSuccessors(node):
+            for son, cami2, nCost in problem.getSuccessors(estat):
                 queue.push((son,cami + [cami2],cost+nCost),(cost+nCost+heuristic(son,problem)))
 
 # Abbreviations
