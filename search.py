@@ -94,7 +94,7 @@ def depthFirstSearch(problem):
     stack.push((firstPos,[],0))
 
     while not stack.isEmpty():
-        estat,cami,cost = stack.pop() #Node is a tuple of two coordinates.
+        estat,cami,cost = stack.pop() #estat is a tuple of two coordinates.
 
         if not estat in expanded:
             expanded.append(estat)
@@ -117,7 +117,7 @@ def breadthFirstSearch(problem):
     queue.push((firstPos,[],0))
 
     while not queue.isEmpty():
-        estat,cami,cost = queue.pop() #Node is a tuple of two coordinates.
+        estat,cami,cost = queue.pop() #estat is a tuple of two coordinates.
 
         if not estat in expanded:
             expanded.append(estat)
