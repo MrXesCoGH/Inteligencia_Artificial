@@ -150,7 +150,7 @@ def aStarSearch(problem, heuristic=nullHeuristic):
 
     firstPos = problem.getStartState();
 
-    queue.push((firstPos,[],0),0) #((node,cami,cost),cHeuristic)
+    queue.push((firstPos,[],0),0) #((node,cami,cost),cost Heuristic)
 
     while not queue.isEmpty():
         node,cami,cost = queue.pop() #Node is a tuple of two coordinates.
