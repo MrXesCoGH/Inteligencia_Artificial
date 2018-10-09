@@ -340,15 +340,15 @@ class CornersProblem(search.SearchProblem):
 
                #while pacman doesn't hit a wall, that's a correct direction
                if not hitsWall:
-                   next_node = (nextx,nexty) #both positions on the matrix.
+                   next_state = (nextx,nexty) #both positions on the matrix.
                    #if the next node actually is inside the corners list then
                    #it has to be added to the visited list.
-                   if next_node in self.corners:
-                       if not next_node in visited:
-                           visited.append(next_node)
+                   if next_state in self.corners:
+                       if not next_state in visited:
+                           visited.append(next_state)
                    #this adds to the successors list the tuple with:
                    # ((next position, if it was visited),its action,its cost)
-                   successors.append(((next_node,visited),action,1))
+                   successors.append(((next_state,visited),action,1))
 
         self._expanded += 1 # DO NOT CHANGE
         return successors
