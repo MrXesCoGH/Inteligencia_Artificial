@@ -395,6 +395,8 @@ def cornersHeuristic(state, problem):
         #it collects the distance and the new actual position for every corner
         #after that, that distance is added to the total distance and the
         #actual position is removed from the not visited list.
+        #This could be done with two fors doing the same thing as this list
+        #comprehension.
         dist, actual = min([(util.manhattanDistance(actual, corner), corner) for corner in pendents])
         total_Distance += dist
         pendents.remove(actual)
