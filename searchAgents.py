@@ -340,15 +340,15 @@ class CornersProblem(search.SearchProblem):
 
                #while pacman doesn't hit a wall, that's a correct direction
                if not hitsWall:
-                   nextNode = (nextx,nexty) #both positions on the matrix.
+                   next_node = (nextx,nexty) #both positions on the matrix.
                    #if the next node actually is inside the corners list then
                    #it has to be added to the visited list.
-                   if nextNode in self.corners:
-                       if not nextNode in visited:
-                           visited.append(nextNode)
+                   if next_node in self.corners:
+                       if not next_node in visited:
+                           visited.append(next_node)
                    #this adds to the successors list the tuple with:
                    # ((next position, if it was visited),its action,its cost)
-                   successors.append(((nextNode,visited),action,1))
+                   successors.append(((next_node,visited),action,1))
 
         self._expanded += 1 # DO NOT CHANGE
         return successors
@@ -499,8 +499,8 @@ def foodHeuristic(state, problem):
     if food_List:
         #this gets the closest food to the agent (Pacman)
         min_dist, min_food = min([(util.manhattanDistance(position, food),food) for food in food_List])
-        #then, check how far is the further food, so the distance between pacman
-        #will be calculated as the sum of both.
+        #and next, checks how far is the further food, so the distance between
+        #this point and the agent will be calculated as the sum of both.
         max_dist= max([(util.manhattanDistance(min_food,food)) for food in food_List])
     else:
         #in the case that there isn't any food in the grid then we already beaten
